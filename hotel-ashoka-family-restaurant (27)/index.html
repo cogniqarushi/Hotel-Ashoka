@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1oyU_50Ji7-vqhHhIZMyojkPPXQR2CwuT" />
+    <link rel="shortcut icon" type="image/png" href="https://lh3.googleusercontent.com/d/1oyU_50Ji7-vqhHhIZMyojkPPXQR2CwuT" />
+    <script>
+      (function() {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          canvas.width = 64;
+          canvas.height = 64;
+          const ctx = canvas.getContext('2d');
+          
+          ctx.beginPath();
+          ctx.arc(32, 32, 32, 0, Math.PI * 2, true);
+          ctx.closePath();
+          ctx.clip();
+          
+          const zoom = 1.45;
+          const imgMinDim = Math.min(img.width, img.height);
+          const cropSize = Math.floor(imgMinDim / zoom);
+          const left = Math.floor((img.width - cropSize) / 2);
+          const top = Math.floor((img.height - cropSize) / 2);
+          
+          ctx.drawImage(img, left, top, cropSize, cropSize, 0, 0, 64, 64);
+          
+          const links = document.querySelectorAll("link[rel~='icon']");
+          links.forEach(link => {
+            link.href = canvas.toDataURL('image/png');
+          });
+        };
+        img.src = "https://lh3.googleusercontent.com/d/1oyU_50Ji7-vqhHhIZMyojkPPXQR2CwuT";
+      })();
+    </script>
+    <title>Hotel Ashoka</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
